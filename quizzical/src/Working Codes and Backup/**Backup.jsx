@@ -35,6 +35,7 @@ function App() {
                 question: query.question,
                 choices: choices,
                 correct: query.correct_answer,
+                chosen: null,
                 checked: false
             }
         })))
@@ -62,9 +63,6 @@ function App() {
         )
     })
 
-    function selected(value) {
-        console.log(value)
-    }
 
     return (
         <div className="item--container">
