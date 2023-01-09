@@ -22,36 +22,13 @@ export default function Quiz() {
            .then(data => setQuizData(data.results))
     }, [game])
 
-    const items = quizData.map(query => {
-        const choices = shuffleArray(query.incorrect_answers.concat(query.correct_answer))
-        const newChoices = choices.map(choice => {
-            return {
-                choiceId: nanoid(),
-                choice: choice,
-                isSelected: false,
-
-            }
-        })
-
-        return {
-            questionId: nanoid(),
-            question: query.question,
-            choices: newChoices,
-            correct: query.correct_answer,
-            chosen: null,
-            checked: false
-        }
-    })
-
-    console.log(items.question)
-
     const quizElements = quizData.map(query => {
         let choices = shuffleArray(query.incorrect_answers.concat(query.correct_answer))
 
-        //console.log(choices)
+        console.log(choices)
 
         return (
-            <div className="item--container">
+            <div>
                 <Question 
                     key={nanoid()}
                     question={query.question}  

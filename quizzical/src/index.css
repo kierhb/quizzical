@@ -7,7 +7,7 @@ body {
     background: #F5F7FB;
 }
 
-.question {
+.question--container {
     font-family: 'Karla';
     font-weight: 700;
     font-size: 16px;

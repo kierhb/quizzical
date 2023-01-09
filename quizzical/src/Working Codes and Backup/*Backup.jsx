@@ -43,7 +43,7 @@ export default function Quiz() {
         }
     })
 
-    console.log(items.question)
+    console.log(items)
 
     const quizElements = quizData.map(query => {
         let choices = shuffleArray(query.incorrect_answers.concat(query.correct_answer))
