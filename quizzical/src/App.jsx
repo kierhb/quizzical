@@ -1,7 +1,5 @@
 import React from 'react'
 import { nanoid } from "nanoid"
-import Question from "./components/Question"
-import Choices from "./components/Choices"
 
 
 function App() {
@@ -21,55 +19,38 @@ function App() {
         fetch("https://opentdb.com/api.php?amount=10&category=30")
         .then(response => response.json())
         .then(data => setQuizData(data.results.map(query => {
-            const allChoices = shuffleArray(query.incorrect_answers.concat(query.correct_answer))
-            const choices = allChoices.map(choice => {
+
+            const incorrectAnswers = query.incorrect_answers.map(wrong => {
                 return {
-                    choiceId: nanoid(),
-                    choice: choice,
-                    isSelected: false
+                    choice: wrong,
+                    isCorrect: false
                 }
-            }) 
-    
+            })
+
+            const correctAnswer = {
+                    choice: query.correct_answer,
+                    isCorrect: true
+                }
+
+            const allChoices = shuffleArray(incorrectAnswers.concat(correctAnswer))
+
             return {
                 questionId: nanoid(),
                 question: query.question,
-                choices: choices,
                 correct: query.correct_answer,
-                checked: false
+                selected: null,
+                choices: allChoices,
+                isCorrect: false
             }
         })))
     }, [game])
 
-    //console.log(quizData)
-
-    const quizElements = quizData.map(query => {
-        console.log(query.choices)
-        return (
-            <div className="item--container">
-                <Question 
-                    key={query.questionId}
-                    id={query.questionId}
-                    question={query.question}
-                    answers={query.answers}
-                />
-                <div>{query.choices.map(item => {console.log(item)})}</div>
-                <Choices
-                    choices={query.choices.map(item => {return (item.choiceId + " " + item.choice)})}
-                    id={query.choices.map(item => {return (item.choiceId)})}
-                />
-
-            </div>
-        )
-    })
-
-    function selected(value) {
-        console.log(value)
-    }
+    console.log(quizData)
 
     return (
         <div className="item--container">
             <button onClick={startGame}>Start</button>
-            {quizElements}
+
         </div>
     )
 }
