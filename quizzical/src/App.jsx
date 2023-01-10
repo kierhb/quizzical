@@ -1,5 +1,7 @@
 import React from 'react'
 import { nanoid } from "nanoid"
+import Question from "./components/Question"
+import Choice from "./components/Choice"
 
 
 function App() {
@@ -47,10 +49,25 @@ function App() {
 
     console.log(quizData)
 
+    const quizElements = quizData.map(quiz => {
+
+        console.log(quiz.choices)
+        return (
+            <div>
+                <Question 
+                    key={quiz.questionId}
+                    question={quiz.question}
+                />
+            </div>
+        )
+    })
+
+
     return (
         <div className="item--container">
             <button onClick={startGame}>Start</button>
-
+            {quizElements}
+    
         </div>
     )
 }
