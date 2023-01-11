@@ -22,19 +22,7 @@ function App() {
         .then(response => response.json())
         .then(data => setQuizData(data.results.map(query => {
 
-            const incorrectAnswers = query.incorrect_answers.map(wrong => {
-                return {
-                    choice: wrong,
-                    isCorrect: false
-                }
-            })
-
-            const correctAnswer = {
-                    choice: query.correct_answer,
-                    isCorrect: true
-                }
-
-            const allChoices = shuffleArray(incorrectAnswers.concat(correctAnswer))
+            const allChoices = shuffleArray(query.incorrect_answers.concat(query.correct_answer))
 
             return {
                 questionId: nanoid(),
@@ -49,6 +37,10 @@ function App() {
 
     console.log(quizData)
 
+    function select(event) {
+        console.log(event)
+    }
+
     const quizElements = quizData.map(quiz => {
 
         console.log(quiz.choices)
@@ -57,6 +49,14 @@ function App() {
                 <Question 
                     key={quiz.questionId}
                     question={quiz.question}
+                    correct={quiz.correct}
+                    selected={quiz.selected}
+                    isCorrect={quiz.isCorrect}
+                />
+                <Choice
+                    choices={quiz.choices}
+                    isSelected={false}
+                    handleClick={select}
                 />
             </div>
         )
@@ -67,7 +67,6 @@ function App() {
         <div className="item--container">
             <button onClick={startGame}>Start</button>
             {quizElements}
-    
         </div>
     )
 }

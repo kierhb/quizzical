@@ -38,6 +38,12 @@ body {
     background: #F5F7FB;
 }
 
+.choices:hover {
+    border: none;
+    background: #D6DBF5;
+    cursor: pointer;
+}
+
 hr {
     margin-bottom: 15px;
     color: #4D5B9E;
